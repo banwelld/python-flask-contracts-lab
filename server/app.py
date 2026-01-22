@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 
 @app.route("/contract/<id>")
-def get_contracts(id):
+def get_contract(id):
     contract = next(
         (contract for contract in contracts if contract["id"] == int(id)), None
     )
@@ -29,6 +29,17 @@ def get_contracts(id):
         return {"error": f"Contract {id} not found"}, 404
 
     return contract["contract_information"], 200
+
+
+@app.route("/customer/<name>")
+def get_customer(name):
+    customer = next(
+        (customer for customer in customers if customer == name), None
+    )
+    if customer is None:
+        return {"error": f"Customer '{name}' not found."}, 404
+
+    return "", 204
 
 
 if __name__ == "__main__":
